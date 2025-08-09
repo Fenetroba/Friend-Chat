@@ -4,7 +4,21 @@ import { Button } from "./ui/button";
 import { FaGoogle } from "react-icons/fa";
 import { ChartAreaIcon, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import api from "../lib/Axois";
 const Hero = ({isAuth}) => {
+
+ const handleGoogle = () => {
+    try {
+      const base = api.defaults.baseURL || "http://localhost:5000/api";
+      const oauthUrl = `${base}/auth/google/oauth`;
+      window.location.href = oauthUrl;
+    } catch (e) {
+      toast("Unable to start Google sign-in", { style: { background: "#570808", color: "#fff" } });
+    }
+  };
+
+
   return (
     <div className="flex flex-col-reverse md:flex-row items-center justify-center min-h-screen bg-[var(--one)] relative overflow-hidden px-4">
       {/* Text Section */}
@@ -26,7 +40,7 @@ const Hero = ({isAuth}) => {
           </Button>
         </Link>
         ) : (
-          <Button className="w-full sm:w-auto px-6 py-3 border-0 bg-[var(--two)] rounded-2xl mt-2 text-[18px] cursor-pointer hover:bg-[var(--three)] flex items-center justify-center gap-2">
+          <Button onClick={handleGoogle}  className="w-full px-6 py-3 border-0 bg-[var(--two)] rounded-2xl mt-2 text-[18px] cursor-pointer hover:bg-[var(--three)] flex items-center justify-center gap-2">
             Continue With Google  <FaGoogle />
           </Button>
         )

@@ -7,6 +7,7 @@ const initialState = {
   GoingRequest:[],
   IncomeRequest:[],
   isLoading: false,
+  searchedUsers:[],
   error: null,
   selectedFriendId: null,
 };
@@ -69,7 +70,15 @@ export const IncomeFriendsRequest=createAsyncThunk('/user/friends-request',async
       return rejectWithValue(error?.response?.data || "Error in getRecommandedFriend friends");
   }
 })
-
+export const FindUserByName=createAsyncThunk('/user/all_users/:name',async(name,{rejectWithValue})=>{
+  try {
+    const response = await api.get(`/user/all_users/${name}`);
+    // Backend returns { success, users: [] }
+    return response.data?.users ?? response.data;
+  } catch (error) {
+    return rejectWithValue(error?.response?.data || "Error in FindUserByName");
+  }
+})
  export const RequestAccept = createAsyncThunk(
   'friends/requestAccept',
   async (requestId, { rejectWithValue }) => {
@@ -115,6 +124,19 @@ export const friendSlice = createSlice({
         state.recommendedUsers = [];
         state.error = action.payload;
       })
+      .addCase(FindUserByName.pending,(state)=>{
+        state.isLoading=true;
+        state.error=null;
+      })
+      .addCase(FindUserByName.fulfilled,(state,action)=>{
+        state.isLoading=false;
+        state.error=null;
+        state.searchedUsers=action.payload;
+      })
+      .addCase(FindUserByName.rejected,(state,action)=>{
+        state.isLoading=false;
+        state.error=action.payload;
+      })  
       .addCase(MyFriends.pending, (state) => {
         state.isLoading = true;
         state.myFriend = [];
@@ -177,6 +199,7 @@ export const friendSlice = createSlice({
             request => request._id !== action.payload.data?._id
           );
         }
+
       })
       .addCase(RequestAccept.rejected, (state, action) => {
         state.isLoading = false;
@@ -185,5 +208,5 @@ export const friendSlice = createSlice({
   },
 });
 
-export const { clearError, setLoading } = friendSlice.actions;
+export const { clearError, setLoading, setSelectedFriendId } = friendSlice.actions;
 export default friendSlice.reducer;

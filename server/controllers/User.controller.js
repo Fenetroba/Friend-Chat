@@ -205,5 +205,30 @@ export const UpDateProfile=async(req,res)=>{
       message: 'Internal Server Error'
     });
   }
-  
+
 }
+export const AllUsers = async (req, res) => {
+  try {
+    // Route is GET /all_users/:name
+    const { name = "" } = req.params || {};
+    const query = String(name || "").trim();
+
+    const CurrentUserId = req.UserOne._id;
+
+    if (!query) {
+      // Return empty array if query is empty to avoid broad fetch
+      return res.status(200).json({ success: true, users: [] });
+    }
+
+    const users = await User.find({
+      Fullname: { $regex: query, $options: 'i' },
+      _id: { $ne: CurrentUserId },
+      friends: { $nin: CurrentUserId },
+    }).select('Fullname profilePic nativeLanguage learningLanguage location');
+
+    return res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};

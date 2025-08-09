@@ -113,10 +113,10 @@ const GetOutGoingReq = () => {
                       <div className="flex items-center gap-3">
                         {/* Profile Avatar */}
 
-                        <Avatar className="border-1">
+                        <Avatar className="border-1 bg-blue-500/20">
                           <AvatarImage src={request.receiver?.profilePic} />
                           <AvatarFallback>
-                          U
+                          {request.receiver?.Fullname.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
 

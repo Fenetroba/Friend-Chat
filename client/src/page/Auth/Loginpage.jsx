@@ -6,7 +6,7 @@ import "../../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "@/Store/AuthSlice";
-import {} from "react-router-dom";
+
 import { toast } from "sonner";
 import Loading from "@/components/Animation/Loading";
 import SiderImg from "../../assets/hero.jpg";

@@ -44,9 +44,9 @@ const OnBoarding = ({ user }) => {
   };
 
   return (
-    <section className="magicpattern min-h-screen flex flex-col items-center justify-center py-8">
+    <section className="magicpattern  flex flex-col items-center justify-center py-8">
       <div className="w-full max-w-lg m-8  bg-gradient-to-br from-[var(--three)] to-[var(--four)] rounded-3xl shadow-2xl p-8 flex flex-col items-center">
-        <p className="mb-6 text-gray-500 text-center">Complete your profile to get the best experience.</p>
+        
         <form
           className="w-full flex flex-col gap-5  "
           onSubmit={onboardingHandler}
