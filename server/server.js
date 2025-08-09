@@ -18,7 +18,7 @@ app.use(cookieParser());
 // Configure CORS options if needed
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://chatapp-stream.onrender.com']
+    ? ['https://friend-chat-1.onrender.com/']
     : ['http://localhost:5173'],
   credentials: true,
 }));
