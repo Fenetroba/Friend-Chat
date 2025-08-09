@@ -243,8 +243,8 @@
 
 .dot-spinner__dot::before {
   content: '';
-  height: 20%;
-  width: 20%;
+  height: 10%;
+  width: 10%;
   border-radius: 50%;
   background-color: var(--uib-color);
   transform: scale(0);
@@ -325,7 +325,7 @@
 /* From Uiverse.io by Nawsome */ 
 .loader {
   position: relative;
-  width: 20vh;
+  width: 10%;
   height: 30vh;
 }
 

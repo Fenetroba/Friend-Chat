@@ -160,7 +160,7 @@ const MainChat = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col h-[80vh] max-h-[90vh] max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+    <div className="flex flex-col h-[90vh] max-h-[90vh] max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
       {/* Chat Header */}
       <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-[var(--four)] to-[var(--three)] text-white border-b border-white/20">
         <div className="flex items-center gap-3">
@@ -234,7 +234,7 @@ const MainChat = ({ user }) => {
                         {msg?.text && <p className="whitespace-pre-wrap break-words">{msg.text}</p>}
                       </div>
                     </ContextMenuTrigger>
-                    <ContextMenuContent className="border-0 bg-gray-400 rounded-2xl">
+                    <ContextMenuContent className="border-0 bg-gray-900 rounded-2xl text-white">
                       <ContextMenuItem
                         onClick={() => DeletHandler(msg._id)}
                         className="hover:font-bold cursor-pointer "
