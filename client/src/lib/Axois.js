@@ -7,9 +7,5 @@ import axios from "axios";
 });
 export default instance
 
-  baseURL: "https://friend-chat-i9ge.onrender.com/api",
-  withCredentials: true
-});
-export default instance
-// "https://chatapp-stream-backend.onrender.com/api" ||
+  
 
