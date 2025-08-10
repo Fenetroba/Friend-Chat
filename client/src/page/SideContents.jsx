@@ -70,9 +70,7 @@ function App_Sidebar({ button }) {
       dispatch({ type: 'friends/setSelectedFriendId', payload: userId })
     }
 
-    useEffect(() => {
-      // no initial chat selection to avoid dispatching with undefined
-    }, [dispatch]);
+
 
   return (
     <Sidebar>
@@ -125,7 +123,7 @@ function App_Sidebar({ button }) {
         <Link to='/Setting'>
           <Avatar className="mb-4">
             <AvatarImage src={Profile} />
-            <AvatarFallback>CN</AvatarFallback>
+<AvatarFallback> {FullName?.charAt(0) || "?"} </AvatarFallback>
           </Avatar>
         </Link>
         <p>@{FullName}</p>

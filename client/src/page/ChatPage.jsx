@@ -7,16 +7,7 @@ import Friends from "./Friends";
 const ChatPage = ({ button,user }) => {
   const location = useLocation();
   // Reload once on entering the chat page to ensure fresh state
-  React.useEffect(() => {
-    const key = "chat_page_reloaded_once";
-    if (!sessionStorage.getItem(key)) {
-      sessionStorage.setItem(key, "true");
-      window.location.reload();
-    } else {
-      // Clear the flag so subsequent navigations can trigger again if desired
-      sessionStorage.removeItem(key);
-    }
-  }, []);
+ 
   return (
     <div>
       <div className=" relative overflow-hidden">
