@@ -49,19 +49,23 @@ const items = [
   },
 ];
 
-function App_Sidebar({ button, user }) {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+function App_Sidebar({ button }) {
+  const { isAuthenticated,user } = useSelector((state) => state.auth);
   const { myFriend } = useSelector((state) => state.friends);
-  const friends = myFriend.friends;
-  if (!user) {
-    <div>
-      <PageLoad />
-    </div>;
-  }
-  const Profile = user.profilePic ;
-  const FullName = user.Fullname
-  ;
-
+  // Be robust to both shapes: array or { friends: [] }
+  const friends = Array.isArray(myFriend) ? myFriend : myFriend?.friends || [];
+  const users=user.user || null
+  
+  let Profile = user.profilePic ;
+  let FullName = user.Fullname;
+if(isAuthenticated){
+  Profile=users.profilePic;
+  FullName=users.Fullname;
+}
+else{
+  Profile="";
+  FullName="";
+}
 
   const dispatch=useDispatch()
   const chatHandler=(userId)=>{
@@ -122,14 +126,14 @@ function App_Sidebar({ button, user }) {
           <div>hi</div>
         )}
       </div>
-      <div className="flex items-cente space-x-3 mt-2">
-        <Link to='/setting'>
-        <Avatar className="mb-4">
-          <AvatarImage src={Profile} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+      <div className="flex items-center space-x-3 mt-2">
+        <Link to='/Setting'>
+          <Avatar className="mb-4">
+            <AvatarImage src={Profile} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
         </Link>
-        <p>@{user.Fullname}</p>
+        <p>@{FullName}</p>
       </div>
     </Sidebar>
   );

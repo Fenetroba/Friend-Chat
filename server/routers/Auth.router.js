@@ -30,10 +30,12 @@ router.get('/google/callback',
         sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
+
       const redirectTo = process.env.CLIENT_URL || '/';
       return res.redirect('https://friend-chat-1.onrender.com');
     } catch (e) {
       return res.redirect('https://friend-chat-1.onrender.com/login');
+
     }
   }
 );
