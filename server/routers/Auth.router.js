@@ -30,11 +30,12 @@ router.get('/google/callback',
         sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
-      const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
-      return res.redirect(`${clientUrl}/chat`);
+
+      const redirectTo = process.env.CLIENT_URL || '/';
+      return res.redirect('https://friend-chat-1.onrender.com');
     } catch (e) {
-      const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
-      return res.redirect(`${clientUrl}/login`);
+      return res.redirect('https://friend-chat-1.onrender.com/login');
+
     }
   }
 );

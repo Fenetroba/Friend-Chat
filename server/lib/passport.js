@@ -5,7 +5,7 @@ import { upsertStreamUser } from '../lib/stream.js';
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/auth/google/callback';
+const CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL || 'https://friend-chat-1.onrender.com/auth/google/callback';
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.warn('Google OAuth env vars missing: GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET');
