@@ -54,18 +54,14 @@ function App_Sidebar({ button }) {
   const { myFriend } = useSelector((state) => state.friends);
   // Be robust to both shapes: array or { friends: [] }
   const friends = Array.isArray(myFriend) ? myFriend : myFriend?.friends || [];
-  const users=user.user || null
-  
-  let Profile = user.profilePic ;
-  let FullName = user.Fullname;
-if(isAuthenticated){
-  Profile=users.profilePic;
-  FullName=users.Fullname;
-}
-else{
-  Profile="";
-  FullName="";
-}
+  const users = user?.user ?? null;
+
+  let Profile = user?.profilePic || "";
+  let FullName = user?.Fullname || "";
+  if (isAuthenticated && users) {
+    Profile = users?.profilePic || "";
+    FullName = users?.Fullname || "";
+  }
 
   const dispatch=useDispatch()
   const chatHandler=(userId)=>{
@@ -74,10 +70,7 @@ else{
       dispatch({ type: 'friends/setSelectedFriendId', payload: userId })
     }
 
-    useEffect(() => {
-      
-      chatHandler()
-    }, [dispatch]);
+ 
 
   return (
     <Sidebar>
@@ -114,7 +107,7 @@ else{
             >
               <Avatar className="mb-4 border-1 border-black text-black bg-blue-200">
                 <AvatarImage src={friendsList.profilePic} />
-                <AvatarFallback> {friendsList.Fullname.charAt(0)} </AvatarFallback>
+                <AvatarFallback> {friendsList?.Fullname?.charAt(0) || "?"} </AvatarFallback>
               </Avatar>
               <div className="">
                 <p className="text-black">{friendsList.Fullname}</p>
