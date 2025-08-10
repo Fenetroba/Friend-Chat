@@ -55,15 +55,17 @@ function App_Sidebar({ button }) {
   // Be robust to both shapes: array or { friends: [] }
   const friends = Array.isArray(myFriend) ? myFriend : myFriend?.friends || [];
   const users=user.user || null
-  if (!users) {
-    <div>
-      <PageLoad />
-    </div>;
-  }
-  const Profile = user.profilePic ;
-  const FullName = user.Fullname
-  ;
-
+  
+  let Profile = user.profilePic ;
+  let FullName = user.Fullname;
+if(isAuthenticated){
+  Profile=users.profilePic;
+  FullName=users.Fullname;
+}
+else{
+  Profile="";
+  FullName="";
+}
 
   const dispatch=useDispatch()
   const chatHandler=(userId)=>{
@@ -131,7 +133,7 @@ function App_Sidebar({ button }) {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Link>
-        <p>@{user.Fullname}</p>
+        <p>@{FullName}</p>
       </div>
     </Sidebar>
   );
