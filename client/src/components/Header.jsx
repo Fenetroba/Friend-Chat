@@ -9,9 +9,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 import { useEffect } from "react";
+import PageLoad from "./Animation/PageLoad";
 
 
 const Header = ({ auth, user, button }) => {
+
+  useEffect(() => {
+      if (!user) {
+       <PageLoad/>
+      }
+    }, [user]);
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,8 +37,10 @@ const Header = ({ auth, user, button }) => {
   const LogoutHandler = () => {
     dispatch(LogoutUser());
   };
+ 
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const profileSrc = (user && (user.profilePic || (user.user && user.user.profilePic))) || '';
 
   return (
     <header className="sticky top-0 w-full z-40 bg-[var(--four)] text-white shadow">
@@ -64,10 +73,10 @@ const Header = ({ auth, user, button }) => {
             </Link>
           )}
 
-          {user && (
+          {user && (  
             <Link to="/Setting" className="flex items-center gap-2">
               <Avatar className="w-10 h-10">
-                <AvatarImage src={user.profilePic} />
+                <AvatarImage src={profileSrc} />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
             </Link>

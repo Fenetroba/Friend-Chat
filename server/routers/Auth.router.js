@@ -30,10 +30,11 @@ router.get('/google/callback',
         sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
-      const redirectTo = process.env.CLIENT_URL || '/';
-      return res.redirect('http://localhost:5173/chat');
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+      return res.redirect(`${clientUrl}/chat`);
     } catch (e) {
-      return res.redirect('http://localhost:5173/login');
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+      return res.redirect(`${clientUrl}/login`);
     }
   }
 );

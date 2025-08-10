@@ -1,5 +1,5 @@
 import { Button } from "./components/ui/button";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./page/HomePage";
 import Loginpage from "./page/Auth/Loginpage";
 import SignUp from "./page/Auth/SignUp";
@@ -24,6 +24,7 @@ import ProtectedRoute from "./page/Auth/pageProtecter";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -31,7 +32,7 @@ function App() {
 
   const { isAuthenticated, user,loading } = useSelector((state) => state.auth);
   console.log(isAuthenticated)
-  if (!user) {
+  if (!loading && !user) {
     <div>
       <PageLoad />
     </div>;
@@ -42,6 +43,17 @@ function App() {
     dispatch(getRecommandedFriend());
     dispatch(MyFriends());
   }, []);
+  
+  // After login/session restore, prefetch and go to chat once
+  const [bootstrapped, setBootstrapped] = useState(false);
+  useEffect(() => {
+    if (!bootstrapped && isAuthenticated && user) {
+      dispatch(getRecommandedFriend());
+      dispatch(MyFriends());
+      navigate('/chat');
+      setBootstrapped(true);
+    }
+  }, [bootstrapped, isAuthenticated, user]);
   
 
   const button = (
