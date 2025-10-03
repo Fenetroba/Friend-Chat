@@ -97,20 +97,20 @@ function App_Sidebar({ button }) {
         </SidebarGroup>
       </SidebarContent>
 
-      <div className="h-[70vh] bg-[var(--one)] overflow-auto">
+      <div className="h-[70vh] bg-[var(--one)] overflow-auto p-2">
         {friends ? (
           friends.map((friendsList) => (
             <div
             onClick={()=>chatHandler(friendsList._id)}
               key={friendsList._id}
-              className="flex  hover:bg-gray-200 hover:scale-105 duration-200 rounded-2xl cursor-pointer  m-2  space-x-2.5 "
+              className="flex  hover:bg-gray-200 border-1 border-[var(--four)] hover:scale-105 duration-200 rounded-2xl cursor-pointer  m-1 space-x-2.5 "
             >
-              <Avatar className="mb-4 border-1 border-black text-black bg-blue-200">
+              <Avatar className="m-4 border-1 border-black text-black bg-blue-200">
                 <AvatarImage src={friendsList.profilePic} />
                 <AvatarFallback> {friendsList?.Fullname?.charAt(0) || "?"} </AvatarFallback>
               </Avatar>
               <div className="">
-                <p className="text-black">{friendsList.Fullname}</p>
+                <p className="text-[var(--five)]">{friendsList.Fullname}</p>
                 <p></p>
               </div>
             </div>

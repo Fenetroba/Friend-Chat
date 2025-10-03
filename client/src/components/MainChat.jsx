@@ -16,6 +16,14 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 const MainChat = ({ user }) => {
   if (!user) {
     return (
@@ -187,9 +195,17 @@ const MainChat = ({ user }) => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-            <MoreVertical className="w-5 h-5" />
-          </button>
+         
+          <DropdownMenu>
+  <DropdownMenuTrigger > <MoreVertical className="w-5 h-5" /></DropdownMenuTrigger>
+  <DropdownMenuContent className='border-0 rounded-2xl backdrop-blur-2xl'>
+   
+    <DropdownMenuItem className="hover:font-bold cursor-pointer">Profile</DropdownMenuItem>
+    <DropdownMenuItem className="hover:font-bold cursor-pointer">Delet All Text</DropdownMenuItem>
+    <DropdownMenuItem className="hover:font-bold cursor-pointer">Block User</DropdownMenuItem>
+    <DropdownMenuItem className="hover:font-bold cursor-pointer">Delet All</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
         </div>
       </div>
 
