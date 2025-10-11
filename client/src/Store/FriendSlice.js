@@ -73,7 +73,7 @@ export const IncomeFriendsRequest=createAsyncThunk('/user/friends-request',async
 export const FindUserByName=createAsyncThunk('/user/all_users/:name',async(name,{rejectWithValue})=>{
   try {
     const response = await api.get(`/user/all_users/${name}`);
-    // Backend returns { success, users: [] }
+    
     return response.data?.users ?? response.data;
   } catch (error) {
     return rejectWithValue(error?.response?.data || "Error in FindUserByName");

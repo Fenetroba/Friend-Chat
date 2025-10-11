@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import "../../App.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,10 +13,10 @@ import SiderImg from "../../assets/hero.jpg";
 import api from "@/lib/Axois";
 
 
-const Loginpage = ({ user }) => {
-  console.log("Login user:", user);
+const Loginpage = ({ user,isAuthenticated }) => {
+  
   const { loading } = useSelector((state) => state.auth);
-  console.log(loading)
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",

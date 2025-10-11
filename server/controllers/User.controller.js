@@ -10,7 +10,7 @@ export const RecommendedUsers = async (req, res) => {
 
     const recommendedUsers = await User.find({
       _id: { $ne: CurrentUserId, $nin: user.friends || [] }, // Corrected query
-      isOnboarded: true,
+      // isOnboarded: true,
     })
       .select('-password -__v')
       .limit(10);
@@ -32,7 +32,7 @@ export const FriendsList = async (req, res) => {
         const CurrentUserId = req.UserOne.id;
       const user = await User.findById(CurrentUserId)
   .select('friends')
-  .populate('friends', 'Fullname profilePic nativeLanguage learningLanguage location isOnboarded')
+  .populate('friends', 'Fullname email profilePic nativeLanguage learningLanguage location isOnboarded')
   .lean();
           
         res.status(200).json({
@@ -148,12 +148,12 @@ export const FriendsRequest = async (req, res) => {
     const IncomeRequest = await Friends.find({
       receiver: CurrentUserId, // <-- receiver, not sender, for incoming requests
       status: "pending",
-    }).populate("sender", "Fullname profilePic nativeLanguage learningLanguage");
+    }).populate("sender", "Fullname email profilePic nativeLanguage learningLanguage");
 
     const acceptedReq = await Friends.find({
       receiver: CurrentUserId,
       status: 'accepted'
-    }).populate('sender', 'Fullname bio');
+    }).populate('sender', 'Fullname bio email');
 
     return res.status(200).json({
       success: true,
@@ -175,7 +175,7 @@ export const getOutGoingReq = async (req, res) => {
     const ReqOutGo = await Friends.find({
       sender: CurrentUserId,
       status: "pending"
-    }).populate("receiver", "Fullname profilePic nativeLanguage learningLanguage");
+    }).populate("receiver", "Fullname email profilePic nativeLanguage learningLanguage");
 
     return res.status(200).json({ success: true, ReqOutGo });
   } catch (error) {

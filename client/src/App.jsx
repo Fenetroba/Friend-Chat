@@ -15,7 +15,6 @@ import AppSidebar from "./page/SideContents";
 import { SidebarProvider } from "./components/ui/sidebar";
 import ChatPage from "./page/ChatPage";
 import Friends from "./page/Friends";
-
 import { getRecommandedFriend, MyFriends } from "./Store/FriendSlice";
 import GetOutGoingReq from "./page/getOutGoingReq";
 import PageLoad from "./components/Animation/PageLoad";
@@ -23,6 +22,12 @@ import Setting from "./page/Setting";
 import ProtectedRoute from "./page/Auth/pageProtecter";
 
 function App() {
+  const [userConnection, SetUserConnection] = useState("");
+
+ 
+
+
+
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
@@ -30,8 +35,8 @@ function App() {
     setDarkMode(!darkMode);
   };
 
-  const { isAuthenticated, user,loading } = useSelector((state) => state.auth);
-  console.log(isAuthenticated)
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
+
   if (!loading && !user) {
     <div>
       <PageLoad />
@@ -43,18 +48,17 @@ function App() {
     dispatch(getRecommandedFriend());
     dispatch(MyFriends());
   }, []);
-  
+
   // After login/session restore, prefetch and go to chat once
   const [bootstrapped, setBootstrapped] = useState(false);
   useEffect(() => {
     if (!bootstrapped && isAuthenticated && user) {
       dispatch(getRecommandedFriend());
       dispatch(MyFriends());
-      navigate('/chat');
+      navigate("/chat");
       setBootstrapped(true);
     }
   }, [bootstrapped, isAuthenticated, user]);
-  
 
   const button = (
     <Button
@@ -67,6 +71,7 @@ function App() {
 
   return (
     <div className={`dark ${darkMode ? "dark" : "light"}`}>
+    
       <Toaster />
       <Routes>
         <Route
@@ -79,13 +84,29 @@ function App() {
         />
         <Route
           path="/login"
-          element={ <ProtectedRoute isAuthenticated={isAuthenticated}> <  Loginpage user={user} isAuthenticated={isAuthenticated} /></ProtectedRoute>}
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {" "}
+              <Loginpage user={user} isAuthenticated={isAuthenticated} />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/signup" element={ <ProtectedRoute isAuthenticated={isAuthenticated}> <SignUp /></ProtectedRoute>} />
+        <Route
+          path="/signup"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {" "}
+              <SignUp />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/chat"
           element={
-            <ProtectedRoute user={user}> <ChatPage user={user} button={button} /></ProtectedRoute>
+            <ProtectedRoute user={user}>
+              {" "}
+              <ChatPage user={user} button={button} />
+            </ProtectedRoute>
           }
         />
         <Route

@@ -12,7 +12,7 @@ const Friends = () => {
   const { myFriend, isLoading,searchedUsers } = useSelector((state) => state.friends);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
+
 
   // Safely derive friends list from state
   const friends = Array.isArray(myFriend) ? myFriend : myFriend?.friends || [];
@@ -30,9 +30,9 @@ const Friends = () => {
     FindUserByNameHandler(); // guarded to no-op on empty
   }, [dispatch]);
   return (
-    <section className="magicpattern w-auto h-auto backdrop-blur-sm">
+    <section className="w-auto h-auto backdrop-blur-sm">
       <TopeNav />
-      <div className="flex max-sm:flex-col  ">
+      <div className="  ">
         <div className="w-full ">
           {friends.length === 0 ? (
             <div className="text-center text-gray-500">
@@ -44,17 +44,17 @@ const Friends = () => {
             </div>
           ) : (
             <div className="backdrop-blur-sm">
-              <div className="sm:m-7  p-2 rounded-2xl sm:flex justify-around items-center  shadow-2xl text-2xl bg-white">
+              <div className="sm:m-2  p-2 rounded-2xl sm:flex justify-around items-center  shadow-2xl text-2xl bg-white">
                 <h2 className="font-bold ">My Friends</h2>
                 
               </div>
-              <div className="flex gap-2 items-center p-10 overflow-x-auto">
+              <div className="flex gap-2 items-center p-3 overflow-x-auto">
                 {friends.map((myfriend) => (
                   <div
                     key={myfriend._id}
-                    className="bg-[var(--one)] shadow-2xl rounded-2xl text-[var(--five)] p-10 min-w-[300px] flex-shrink-0"
+                    className="bg-black shadow-2xl rounded-2xl text-[var(--five)] p-10 sm:min-w-[400px] flex-shrink-0"
                   >
-                    <div className="flex gap-3 items-center">
+                    <div className="flex gap-3 text-white items-center">
                       <Avatar className="mb-4 border-1 bg-blue-500/20">
                         <AvatarImage src={myfriend.profilePic} />
                         <AvatarFallback>   {myfriend.Fullname.charAt(0)}</AvatarFallback>
@@ -63,14 +63,15 @@ const Friends = () => {
                     </div>
                     <div className="flex gap-10">
                       <p className="bg-[var(--three)] px-4 text-white p-1 rounded-2xl">
-                        {myfriend.nativeLanguage}
+                        {myfriend.email}
                       </p>
+                    
                       <p className="bg-[var(--two)] px-4 text-white p-1 rounded-2xl">
                         {myfriend.location}
                       </p>
                     </div>
                   <Link to='/chat'>
-                  <Button className="w-full mt-3 border-1 cursor-pointer rounded-2xl hover:blur-[2px]">
+                  <Button className="text-white w-full mt-3 border-1 cursor-pointer rounded-2xl hover:blur-[2px]">
                       Message
                     </Button>
                     </Link>
@@ -80,7 +81,7 @@ const Friends = () => {
             </div>
           )}
 
-          <CreateRequest query={query} />
+          <CreateRequest />
         </div>
       </div>
     </section>
